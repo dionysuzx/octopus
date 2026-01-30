@@ -39,22 +39,24 @@ status: (optional, e.g. "Proposed" or "Considered" - leave blank if none)
 context: (optional eth r&d discord context)
 ```
 
-### Status History
+### Status & Presentation History
 
-Add to `statusHistory` if user provides status or transcript has explicit status change. Don't infer—leave empty if uncertain.
+**statusHistory**: Add if user provides status or transcript has explicit status change. Don't infer—leave empty if uncertain.
 
-### Presentation History Types
-
+**presentationHistory** types:
 - `headliner_proposal`: Eth Magicians post proposing EIP as headliner. Requires `link` field.
-- `headliner_presentation`: Presentation at a call as headliner candidate. Requires `call` and `date` fields.
-- `presentation`: General presentation at a call. Requires `call` and `date` fields.
-- `debate`: Discussion/debate at a call. Requires `call` and `date` fields.
+- `headliner_presentation`: First presentation at a call as headliner candidate (use when user provided a headliner URL). Requires `call` and `date` fields.
+- `presentation`: General presentation at a call for non-headliner EIPs. Requires `call` and `date` fields.
+- `debate`: Follow-up discussion at a later call, after initial presentation. Requires `call` and `date` fields.
+
+Do not add `timestamp` fields unless you are sure they refer accurately to the start time.
 
 ### Headliner Flags
 
 If the user provides a headliner URL (i.e., `headliner` is not "no"), set:
-- `isHeadliner`: `true`
-- `wasHeadlinerCandidate`: `false`
+- `isHeadliner`: `false`
+- `wasHeadlinerCandidate`: `true`
+- For the call presentation, use `headliner_presentation` (not `debate` or `presentation`)
 
 ## Automated Resource Gathering
 
@@ -210,10 +212,13 @@ bun scripts/compile-eips.mjs
 
 If there are errors, fix them before reporting success.
 
-## Summary
+## Summary & PR
 
-After completing the conversion, report to user with this structured summary:
+After completing the conversion, report to user with this structured summary. Use the same format for the PR body.
 
+**PR Title**: `Add EIP-{number}: {title}`
+
+**PR Body / Summary**:
 ```
 ## EIP-{number}: {title}
 
@@ -239,30 +244,6 @@ Ported to forkcast format.
 - **Champion**: {name} ({discord_handle})
 - **Layer**: {EL/CL}
 - **Status**: {status or "none"}
-- **Headliner**: {yes/no}
-```
-
-## Creating a PR
-
-**Title**: `Add EIP-{number}: {title}`
-
-**Body**:
-```
-## EIP-{number}: {title}
-
-Ported to forkcast format.
-
-### Sources Used
-| Source | Reference |
-|--------|-----------|
-| Raw EIP | ethereum/EIPs/EIPS/eip-{number}.md |
-| Original PR | #{pr_number} - {pr_title} |
-| Eth Magicians | {thread_title} ({post_count} posts) |
-| Call Transcript | {call_ref} |
-
-### Metadata
-- **Champion**: {name} ({discord_handle})
-- **Layer**: {EL/CL}
 - **Headliner**: {yes/no}
 
 Full context preserved in `src/data/eips/{number}-context.md`
