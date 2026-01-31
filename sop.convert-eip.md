@@ -2,8 +2,6 @@
 
 Convert an EIP proposed for glamsterdam into forkcast JSON format.
 
-**Prerequisite**: Run this from the protocol-support repo. If `./forkcast/src/types/eip.ts` doesn't exist, tell user the forkcast repo is missing.
-
 ## Schema
 
 Get the current schema:
