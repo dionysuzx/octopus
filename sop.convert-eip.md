@@ -221,6 +221,9 @@ After completing the conversion, report to user with this structured summary. Us
 
 **PR Body / Summary**:
 ```
+> [!NOTE]
+> This PR was generated with `claude sop.convert-eip.md` (see [sop.convert-eip.md](https://github.com/dionysuzx/octopus/blob/main/sop.convert-eip.md)).
+
 ## EIP-{number}: {title}
 
 Ported to forkcast format.
