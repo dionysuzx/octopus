@@ -13,6 +13,7 @@ Get the current schema:
 - **description**: max 80 words, match the EIP abstract as closely as possible
 - **laymanDescription**: max 60 words, plain language for non-technical readers
 - **layer**: choose `EL` or `CL`, whichever is more appropriate
+- **reviewer**: set to `"bot"` for AI-generated conversions like this
 - **stakeholderImpacts**: ~20 words each
   - `clClients` and `elClients`: focus on implementation complexity
 - **benefits**: max 16 words each, up to 4
@@ -214,6 +215,8 @@ If there are errors, fix them before reporting success.
 
 After completing the conversion, report to user with this structured summary. Use the same format for the PR body.
 
+**Important**: Only commit the `.json` file. Do not commit the `*-context.md` file—it is for local reference only.
+
 **PR Title**: `Add EIP-{number}: {title}`
 
 **PR Body / Summary**:
@@ -224,7 +227,6 @@ Ported to forkcast format.
 
 ### Files
 - `forkcast/src/data/eips/{number}.json` - EIP data
-- `forkcast/src/data/eips/{number}-context.md` - Full source context
 
 ### Sources Used
 | Source | Reference |
@@ -243,6 +245,4 @@ Ported to forkcast format.
 - **Layer**: {EL/CL}
 - **Status**: {status or "none"}
 - **Headliner**: {yes/no}
-
-Full context preserved in `forkcast/src/data/eips/{number}-context.md`
 ```
