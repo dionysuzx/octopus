@@ -18,6 +18,7 @@ Get the current schema:
   - `clClients` and `elClients`: focus on implementation complexity
 - **benefits**: max 16 words each, up to 4
 - **tradeoffs**: max 16 words each, include if any exist
+- **discussionLink**: use the EIP's `discussions-to` URL from the frontmatter. If empty (e.g., unmerged EIP), use the headliner proposal URL or Eth Magicians thread if available.
 - **northStarAlignment**: include if EIP aligns with any of these goals (1 sentence each):
   - `scaleL1`: L1 throughput/efficiency improvements
   - `scaleBlobs`: Blob capacity/scaling improvements
@@ -209,7 +210,13 @@ Run the compile script to verify the generated EIP is valid:
 bun forkcast/scripts/compile-eips.mjs
 ```
 
-If there are errors, fix them before reporting success.
+Then run the metadata validator to auto-fix fields like `title`, `description`, `status`, and `author` from the canonical EIP source:
+
+```bash
+npm run validate-eips -- --eip {EIP_NUMBER} --fix
+```
+
+If there are errors in either step, fix them before reporting success.
 
 ## Summary & PR
 
