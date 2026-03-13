@@ -207,7 +207,7 @@ Source: Eth R&D Discord (user-provided)
 Run the compile script to verify the generated EIP is valid:
 
 ```bash
-npm run compile-eips --prefix forkcast
+npm run compile-eips
 ```
 
 Then run the metadata validator to auto-fix fields like `title`, `description`, `status`, and `author` from the canonical EIP source:
