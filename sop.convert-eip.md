@@ -264,11 +264,4 @@ Ported to forkcast format.
 
 ## Retrospective
 
-After each run, note friction points below so the SOP self-improves. Remove entries once they've been addressed above. Keep this list short — if a fix is obvious, just apply it to the SOP directly instead of logging it here.
-
-### EIP-8184 (2026-03-13)
-- Added `discussionLink` guidance — was missing, left empty on first pass
-- Added `specificationUrl` field — unmerged EIPs need an override since `eips.ethereum.org` 404s
-- Added PR branch fallback — steps 1-2 assume EIP is merged, 404'd for unmerged EIP
-- Removed redundant `debate` in `presentationHistory` — if a call already has a status change (e.g., Declined), debate is implicit
-- Champions need user confirmation — don't assume all authors are champions
+After completing the PR, review the run for any friction: missing guidance, incorrect defaults, assumptions that needed correction, or steps that broke. Present a hyphenated list of issues to the user and offer to patch this SOP to address them.
