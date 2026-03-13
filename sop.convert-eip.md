@@ -5,8 +5,8 @@ Convert an EIP proposed for glamsterdam into forkcast JSON format.
 ## Schema
 
 Get the current schema:
-- Type definitions: `forkcast/src/types/eip.ts`
-- Example EIPs: `forkcast/src/data/eips/*.json`
+- Type definitions: `src/types/eip.ts`
+- Example EIPs: `src/data/eips/*.json`
 
 ## Writing Guidelines
 
@@ -125,7 +125,7 @@ curl -s "https://ethereum-magicians.org/t/{TOPIC_SLUG}/{TOPIC_ID}.json" | jq '.p
 Extract the **post date** from `created_at`. Do not assume it matches the call date.
 
 ### 5. Call Transcript
-Glob: `forkcast/public/artifacts/{call_type}/*{number}*/**`. Prefer `transcript_corrected.vtt`, fall back to `transcript.vtt`. Grep for the EIP number or title to find relevant discussion.
+Glob: `public/artifacts/{call_type}/*{number}*/**`. Prefer `transcript_corrected.vtt`, fall back to `transcript.vtt`. Grep for the EIP number or title to find relevant discussion.
 
 ### 6. Related EIPs
 If the EIP has a `requires` field, fetch those using the same method.
@@ -140,8 +140,8 @@ Before generating JSON, verify you have enough information for all required fiel
 ## Output
 
 Generate files in this order:
-1. `forkcast/src/data/eips/{EIP_NUMBER}-context.md` - context file first (raw data)
-2. `forkcast/src/data/eips/{EIP_NUMBER}.json` - EIP JSON second (synthesized from context)
+1. `src/data/eips/{EIP_NUMBER}-context.md` - context file first (raw data)
+2. `src/data/eips/{EIP_NUMBER}.json` - EIP JSON second (synthesized from context)
 
 ### Context File Format
 
@@ -236,7 +236,7 @@ After completing the conversion, report to user with this structured summary. Us
 Ported to forkcast format.
 
 ### Files
-- `forkcast/src/data/eips/{number}.json` - EIP data
+- `src/data/eips/{number}.json` - EIP data
 
 ### Sources Used
 | Source | Reference |
