@@ -1,6 +1,6 @@
 # Convert EIP
 
-Convert an EIP proposed for glamsterdam into forkcast JSON format.
+Convert an EIP proposed for the current fork (e.g., Glamsterdam, Hegota) into forkcast JSON format.
 
 ## Schema
 
@@ -19,6 +19,7 @@ Get the current schema:
 - **benefits**: max 16 words each, up to 4
 - **tradeoffs**: max 16 words each, include if any exist
 - **discussionLink**: use the EIP's `discussions-to` URL from the frontmatter. If empty (e.g., unmerged EIP), use the headliner proposal URL or Eth Magicians thread if available.
+- **specificationUrl**: only set this for unmerged EIPs where the default `eips.ethereum.org` URL would 404. Point it to the GitHub PR (e.g., `https://github.com/ethereum/EIPs/pull/11376`).
 - **northStarAlignment**: include if EIP aligns with any of these goals (1 sentence each):
   - `scaleL1`: L1 throughput/efficiency improvements
   - `scaleBlobs`: Blob capacity/scaling improvements
@@ -64,10 +65,12 @@ Use the EIP number to gather all resources:
 
 ### 1. Raw EIP (Latest from Master)
 
-Fetch the current version from master, not from the original PR:
+Fetch the current version from master:
 ```bash
 gh api '/repos/ethereum/EIPs/contents/EIPS/eip-{EIP_NUMBER}.md' --jq '.content' | base64 -d
 ```
+
+If this 404s (unmerged EIP), fall back to fetching from the PR branch instead. Find the PR, get the head SHA, and fetch from that ref.
 
 ### 2. Commit History
 
@@ -82,7 +85,7 @@ Review these to understand how the EIP evolved. The original "Add EIP" commit is
 
 Find the original PR from the first commit:
 ```bash
-# Get the original commit SHA (last in list = oldest)
+# Get the original commit SHA (last in list = oldest). Validate it looks like a hex SHA before using.
 ORIGINAL_SHA=$(gh api '/repos/ethereum/EIPs/commits?path=EIPS/eip-{EIP_NUMBER}.md' --jq '.[-1].sha')
 
 # Find the PR for that commit
@@ -115,6 +118,8 @@ curl -s "https://ethereum-magicians.org/t/{TOPIC_SLUG}/{TOPIC_ID}.json" | jq '.p
 ```
 
 Extract the topic slug and ID from the `discussions-to` URL (e.g., `eip-7807-ssz-execution-blocks/21580`).
+
+**Note**: Discourse only returns the first 20 posts by default. For threads with many posts, fetch the latest posts by using the post IDs from `post_stream.stream` (which contains all IDs) and requesting the most recent ones via `?post_ids[]=`.
 
 ### 4a. Headliner Proposal
 If user provides a headliner URL, fetch it with the same JSON API approach:
